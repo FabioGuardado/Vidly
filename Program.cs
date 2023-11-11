@@ -26,6 +26,9 @@ namespace Vidly
 
             app.UseAuthorization();
 
+            // This method maps the attribute routes in ASP.NET 6
+            app.MapControllers();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

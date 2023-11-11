@@ -15,7 +15,7 @@ namespace Vidly.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/Customers");
         }
 
         public IActionResult Privacy()
