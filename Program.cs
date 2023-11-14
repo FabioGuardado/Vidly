@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Vidly.Models;
+
 namespace Vidly
 {
     public class Program
@@ -5,6 +8,11 @@ namespace Vidly
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add Connection String in ASP.NET 6 WITH ENTITYFRAMEWORKCORE
+            // Connection string has to be added in appsettings.json file.
+            string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<VidlyContext>(options =>  options.UseSqlServer(connString));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

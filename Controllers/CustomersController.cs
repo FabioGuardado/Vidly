@@ -1,33 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        private VidlyContext _context;
+
+        public CustomersController()
+        {
+            _context = new VidlyContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         [Route("Customers")]
         public IActionResult Index()
         {
-            var customers = new List<Customer> { new Customer() { Id = 1, Name = "Fabio Guardado" }, new Customer() { Id = 2, Name = "Paola de Guardado" } };
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
             var viewModel = new CustomersViewModel() { Customers = customers };
             return View(viewModel);
         }
 
-        [Route("Customers/Details")]
-        public IActionResult Details(int Id, string Name)
+        [Route("Customers/Details/{Id}")]
+        public IActionResult Details(int Id)
         {
-            if (Id == 0)
+
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == Id);
+
+            if (customer == null)
             {
-                Id = 1;
+                return NotFound();
             }
 
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                Name = "New Customer";
-            }
-
-            var customer = new Customer() { Id = Id, Name = Name };
             var viewModel = new CustomerDetailsViewModel() { Customer = customer };
 
             return View(viewModel);

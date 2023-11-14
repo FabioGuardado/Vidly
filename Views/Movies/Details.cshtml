@@ -8,3 +8,9 @@
 }
 
 <h3>@Model.Movie.Name</h3>
+<ul>
+    <li>Genre: @Model.Movie.Genre.Name</li>
+    <li>Release Date: @Model.Movie.ReleaseDate.ToLongDateString()</li>
+    <li>Date Added: @Model.Movie.DateAdded.ToLongDateString()</li>
+    <li>Number In Stock: @Model.Movie.NumberInStock</li>
+</ul>

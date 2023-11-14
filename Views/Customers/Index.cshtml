@@ -20,6 +20,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Membership Type</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +28,8 @@
             {
                 <tr>
                     <td>@customer.Id</td>
-                    <td><a href="/Customers/Details?Id=@customer.Id&Name=@customer.Name">@customer.Name</a></td>
+                    <td><a href="/Customers/Details/@customer.Id">@customer.Name</a></td>
+                    <td>@customer.MembershipType.Name</td>
                 </tr>
             }
         </tbody>

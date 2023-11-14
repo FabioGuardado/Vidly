@@ -8,3 +8,11 @@
 }
 
 <h3>@Model.Customer.Name</h3>
+
+<ul>
+    <li>Membership Type: @Model.Customer.MembershipType.Name</li>
+    @if (Model.Customer.Birthdate != null) 
+    {
+        <li>Birthdate: @Model.Customer.Birthdate</li>
+    }
+</ul>

@@ -21,6 +21,7 @@ else
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Genre</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +29,8 @@ else
             {
                 <tr>
                     <td>@movie.Id</td>
-                    <td><a href="/Movies/Details?Id=@movie.Id&Name=@movie.Name">@movie.Name</a></td>
+                    <td><a href="/Movies/Details/@movie.Id">@movie.Name</a></td>
+                    <td>@movie.Genre.Name</td>
                 </tr>
             }
         </tbody>
