@@ -9,6 +9,10 @@
 
 <h3>Movies List</h3>
 <br />
+  
+<a href="/Movies/New">
+    <button class="mb-3 btn btn-primary">New Movie</button>
+</a>
 
 @if (Model.Movies.Count == 0)
 {
@@ -29,7 +33,7 @@ else
             {
                 <tr>
                     <td>@movie.Id</td>
-                    <td><a href="/Movies/Details/@movie.Id">@movie.Name</a></td>
+                    <td><a href="/Movies/Edit/@movie.Id">@movie.Name</a></td>
                     <td>@movie.Genre.Name</td>
                 </tr>
             }
