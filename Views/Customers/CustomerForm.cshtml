@@ -14,19 +14,23 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="mb-3">@ViewBag.Action</h2>
+                @Html.ValidationSummary(true, "Please fix the following errors.")
                 <div class="mb-3 form-group">
                     @Html.LabelFor(m => m.Customer.Name, new { @class = "form-label" })
                     @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Customer.Name)
+                </div>
+
+                <div class="mb-4 form-group">
+                    @Html.LabelFor(m => m.Customer.MembershipTypeId, new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
                 </div>
 
                 <div class="mb-3 form-group">
                     @Html.LabelFor(m => m.Customer.Birthdate, new { @class = "form-label" })
                     @Html.TextBoxFor(m => m.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
-                </div>
-
-                <div class="mb-4 form-group">
-                    @Html.LabelFor(m => m.Customer.MembershipTypeId, new { @class = "form-label" })
-                    @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "", new { @class = "form-select" })
+                    @Html.ValidationMessageFor(m => m.Customer.Birthdate)
                 </div>
 
                 <div class="mb-5 form-check">
@@ -37,9 +41,17 @@
                 </div>
 
                 @Html.HiddenFor(m => m.Customer.Id)
+                @Html.AntiForgeryToken()
 
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        alert('Alert Test');    
+    </script>
 }

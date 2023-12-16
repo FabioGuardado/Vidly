@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using Vidly.Models;
 
 namespace Vidly
@@ -12,9 +13,13 @@ namespace Vidly
             // Add Connection String in ASP.NET 6 WITH ENTITYFRAMEWORKCORE
             // Connection string has to be added in appsettings.json file.
             string connString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<VidlyContext>(options =>  options.UseSqlServer(connString));
+            builder.Services.AddDbContext<VidlyContext>(options => options.UseSqlServer(connString));
 
             // Add services to the container.
+            builder.Services.AddControllersWithViews();
+
+            // Add Auto Mapper
+            builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
