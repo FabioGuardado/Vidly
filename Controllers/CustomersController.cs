@@ -22,9 +22,7 @@ namespace Vidly.Controllers
         [Route("Customers")]
         public IActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-            var viewModel = new CustomersViewModel() { Customers = customers };
-            return View(viewModel);
+            return View();
         }
 
         [Route("Customers/Details/{Id}")]
@@ -54,7 +52,8 @@ namespace Vidly.Controllers
                 return NotFound();
             }
 
-            var viewModel = new CustomerFormViewModel() { 
+            var viewModel = new CustomerFormViewModel()
+            {
                 Customer = customer,
                 MembershipTypes = _context.MembershipType.ToList()
             };
@@ -65,14 +64,14 @@ namespace Vidly.Controllers
         }
 
         [Route("Customers/New")]
-        public IActionResult New() 
-        { 
+        public IActionResult New()
+        {
             var membershipTypes = _context.MembershipType.ToList();
             var viewModel = new CustomerFormViewModel() { Customer = new Customer(), MembershipTypes = membershipTypes };
 
             ViewBag.Action = "Create Customer";
 
-            return View("CustomerForm", viewModel); 
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
@@ -81,17 +80,18 @@ namespace Vidly.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new CustomerFormViewModel() {  Customer = customer, MembershipTypes = _context.MembershipType.ToList() };
+                var viewModel = new CustomerFormViewModel() { Customer = customer, MembershipTypes = _context.MembershipType.ToList() };
                 return View("CustomerForm", viewModel);
             }
 
             if (customer.Id == 0)
             {
                 _context.Customers.Add(customer);
-            } else
+            }
+            else
             {
                 var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
-                
+
                 customerInDb.Name = customer.Name;
                 customerInDb.Birthdate = customer.Birthdate;
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
